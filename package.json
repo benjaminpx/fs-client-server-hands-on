@@ -1,0 +1,32 @@
+{
+  "name": "React-Vite-Starter-Template",
+  "version": "1.0.0",
+  "description": "<h1 align=\"center\">React-Vite-Starter-Template</h1> <p align=\"center\">     Full-stack starter template for React projects by <a href=\"https://github.com/antoinemcx\">antoinemcx</a> using Vite.<br />     If you like the project, feel free to put a ⭐ ; If you need help, join the <a href=\"https://discord.gg/G6WQsMQShZ\">server support</a>. </p>",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "nodemon server/src/server.js",
+    "client": "npm run start --prefix client",
+    "dev": "vite"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/antoinemcx/React-Vite-Starter-Template.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/antoinemcx/React-Vite-Starter-Template/issues"
+  },
+  "homepage": "https://github.com/antoinemcx/React-Vite-Starter-Template#readme",
+  "dependencies": {
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.1.4"
+  },
+  "devDependencies": {
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "prettier": "^3.3.3"
+  }
+}
