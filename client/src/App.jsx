@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import Chip from './components/Chip';
 import Box from './components/Box';
 import CheckBox from './components/CheckBox';
+import axios from 'axios';
+import { useEffect } from 'react';
 
 const DATA = Array.from({ length: 20 }).map((_, i) => ({
     label: `Item ${i}`,

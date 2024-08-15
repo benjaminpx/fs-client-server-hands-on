@@ -7,14 +7,15 @@ const PORT = process.env.PORT || 5000;
 
 app.use(cors());
 
+const DATA = Array.from({ length: 100 }).map((_, i) => ({
+    label: `Item ${i}`,
+    id: `id-${i}`,
+    isDefault: Math.random() > 0.5,
+}));
+
 app.get('/api', (req, res) => {
-    res.json(
-        Array.from({ length: 10_000 }).map((_, i) => ({
-            label: `Item ${i}`,
-            id: `id-${i}`,
-            isDefault: i % 2 === 0,
-        })),
-    );
+    const { page, pageSize } = req.query;
+    res.json({ data: DATA, total: DATA.length });
 });
 
 app.listen(PORT, () => {
