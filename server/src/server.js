@@ -14,8 +14,11 @@ const DATA = Array.from({ length: 100 }).map((_, i) => ({
 }));
 
 app.get('/api', (req, res) => {
-    const { page, pageSize } = req.query;
-    res.json({ data: DATA, total: DATA.length });
+    let { page, pageSize } = req.query;
+    page = Number(page);
+    pageSize = Number(pageSize);
+
+    res.json({ data: DATA.slice(page * pageSize, page * pageSize + pageSize), total: DATA.length });
 });
 
 app.listen(PORT, () => {

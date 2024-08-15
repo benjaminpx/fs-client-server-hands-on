@@ -29,8 +29,12 @@ function App() {
     const [page, setPage] = useState(0);
     const [data, setData] = useState();
     useEffect(() => {
-        axios.get(`http://localhost:5000/api?page=${page}&pageSize=${PAGE_SIZE}`).then(data => console.log(data));
-    }, []);
+        axios.get(`http://localhost:5000/api?page=${page}&pageSize=${PAGE_SIZE}`).then(({ data }) => setData(data));
+    }, [page]);
+
+    if (!data) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <Wrapper>
@@ -41,7 +45,7 @@ function App() {
                     <CheckBox label="Default" />
                 </Actions>
                 <Container>
-                    {DATA.map(({ label, id }) => (
+                    {data.data.map(({ label, id }) => (
                         <Chip key={id}>{label}</Chip>
                     ))}
                 </Container>
