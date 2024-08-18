@@ -11,6 +11,7 @@ const DATA = Array.from({ length: 100 }).map((_, i) => ({
     label: `Item ${i}`,
     id: `id-${i}`,
     isDefault: Math.random() > 0.5,
+    checked: false,
 }));
 
 app.get('/api', (req, res) => {
@@ -19,6 +20,15 @@ app.get('/api', (req, res) => {
     pageSize = Number(pageSize);
 
     res.json({ data: DATA.slice(page * pageSize, page * pageSize + pageSize), total: DATA.length });
+});
+
+app.post('/api/:id', (req, res) => {
+    let { id } = req.params;
+
+    const itemIndex = DATA.findIndex(item => item.id === id);
+    const item = DATA[itemIndex];
+    item.checked = !item.checked;
+    res.json(item);
 });
 
 app.listen(PORT, () => {

@@ -3,7 +3,7 @@ import Chip from './components/Chip';
 import Box from './components/Box';
 import CheckBox from './components/CheckBox';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 const DATA = Array.from({ length: 20 }).map((_, i) => ({
     label: `Item ${i}`,
@@ -28,9 +28,22 @@ const PAGE_SIZE = 20;
 function App() {
     const [page, setPage] = useState(0);
     const [data, setData] = useState();
-    useEffect(() => {
-        axios.get(`http://localhost:5000/api?page=${page}&pageSize=${PAGE_SIZE}`).then(({ data }) => setData(data));
-    }, [page]);
+
+    const getData = useCallback(() => {
+        axios
+            .get(`http://localhost:5000/api?page=${page}&pageSize=${PAGE_SIZE}`)
+            .then(({ data }) => data && setData(data));
+    }, [page, PAGE_SIZE]);
+
+    useEffect(() => getData(), [getData]);
+
+    const toggleChip = async id => {
+        try {
+            await axios.post(`http://localhost:5000/api/${id}`);
+        } finally {
+            await getData();
+        }
+    };
 
     if (!data) {
         return <div>Loading...</div>;
@@ -40,19 +53,26 @@ function App() {
         <Wrapper>
             <h1>Select Items</h1>
             <Box>
-                <Actions>
-                    <CheckBox label="All" />
-                    <CheckBox label="Default" />
-                </Actions>
+                {/*<Actions>*/}
+                {/*    <CheckBox label="All" />*/}
+                {/*    <CheckBox label="Default" />*/}
+                {/*</Actions>*/}
                 <Container>
                     {data.data.map(({ label, id }) => (
-                        <Chip key={id}>{label}</Chip>
+                        <Chip
+                            key={id}
+                            checked={data.data.find(item => item.id === id).checked}
+                            onClick={() => toggleChip(id)}
+                        >
+                            {label}
+                        </Chip>
                     ))}
                 </Container>
             </Box>
 
             <Pagination>
                 <Button
+                    disabled={page === 0}
                     onClick={() => {
                         setPage(p => (p -= 1));
                     }}
@@ -61,6 +81,7 @@ function App() {
                 </Button>
                 <span>{page + 1}</span>
                 <Button
+                    disabled={Math.ceil(data.total / PAGE_SIZE) - 1 === page}
                     onClick={() => {
                         setPage(p => (p += 1));
                     }}
@@ -98,6 +119,13 @@ const Button = styled.button`
     }
     &:active {
         transform: scale(0.98);
+    }
+
+    &:disabled {
+        opacity: 0.5;
+        cursor: default;
+        transform: none;
+        filter: grayscale(1);
     }
 `;
 
