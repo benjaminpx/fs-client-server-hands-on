@@ -28,7 +28,7 @@ function App() {
             .then(({ data }) => data && setData(data));
     }, [page, PAGE_SIZE]);
 
-    useEffect(() => getData(), [getData]);
+    useEffect(() => getData(), []);
 
     const toggleChip = async id => {
         try {
