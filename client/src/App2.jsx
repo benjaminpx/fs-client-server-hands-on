@@ -1,15 +1,8 @@
 import styled from 'styled-components';
 import Chip from './components/Chip';
 import Box from './components/Box';
-import CheckBox from './components/CheckBox';
 import axios from 'axios';
 import { useCallback, useEffect, useState } from 'react';
-
-const DATA = Array.from({ length: 20 }).map((_, i) => ({
-    label: `Item ${i}`,
-    id: `id-${i}`,
-    isDefault: i % 2 === 0,
-}));
 
 const Container = styled.div`
     display: flex;
@@ -53,10 +46,6 @@ function App() {
         <Wrapper>
             <h1>Select Items</h1>
             <Box>
-                {/*<Actions>*/}
-                {/*    <CheckBox label="All" />*/}
-                {/*    <CheckBox label="Default" />*/}
-                {/*</Actions>*/}
                 <Container>
                     {data.data.map(({ label, id }) => (
                         <Chip

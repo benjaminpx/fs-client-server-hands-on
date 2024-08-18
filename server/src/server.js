@@ -13,22 +13,16 @@ const DATA = Array.from({ length: 100 }).map((_, i) => ({
     isDefault: Math.random() > 0.5,
     checked: false,
 }));
+const sleep = ms => new Promise(res => setTimeout(res, ms));
 
-app.get('/api', (req, res) => {
-    let { page, pageSize } = req.query;
-    page = Number(page);
-    pageSize = Number(pageSize);
-
-    res.json({ data: DATA.slice(page * pageSize, page * pageSize + pageSize), total: DATA.length });
+app.get('/api', async (req, res) => {
+    await sleep(3000);
+    // return current items with offset
+    res.json({ data: DATA, total: DATA.length });
 });
 
 app.post('/api/:id', (req, res) => {
-    let { id } = req.params;
-
-    const itemIndex = DATA.findIndex(item => item.id === id);
-    const item = DATA[itemIndex];
-    item.checked = !item.checked;
-    res.json(item);
+    // return updates item
 });
 
 app.listen(PORT, () => {
