@@ -35,7 +35,7 @@ const Wrapper = styled.label`
     }
 `;
 
-const Chip = ({ checked, children, onClick }) => {
+const Chip = ({ checked = false, children, onClick }) => {
     return (
         <Wrapper className="container">
             <input type="checkbox" checked={checked} onChange={onClick} />

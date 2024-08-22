@@ -11,18 +11,12 @@ const Container = styled.div`
     gap: 13px;
 `;
 
-const Actions = styled.div`
-    display: flex;
-    gap: 20px;
-    margin-bottom: 20px;
-`;
-
 const PAGE_SIZE = 20;
 
 function App() {
     const [user, setUser] = useState({
-        firstName: 'Ben',
-        lastName: 'Cohen',
+        firstName: 'David',
+        lastName: 'Klein',
     });
     const [page, setPage] = useState(0);
     const [data, setData] = useState();
