@@ -3,7 +3,6 @@ import Chip from './components/Chip';
 import Box from './components/Box';
 import axios from 'axios';
 import { useCallback, useEffect, useState } from 'react';
-import Input from './components/Input';
 
 const Container = styled.div`
     display: flex;
@@ -14,10 +13,6 @@ const Container = styled.div`
 const PAGE_SIZE = 20;
 
 function App() {
-    const [user, setUser] = useState({
-        firstName: 'Gilad',
-        lastName: 'Pomer',
-    });
     const [page, setPage] = useState(0);
     const [data, setData] = useState();
 
@@ -27,7 +22,7 @@ function App() {
             .then(({ data }) => data && setData(data));
     }, [page, PAGE_SIZE]);
 
-    useEffect(() => getData(), []);
+    useEffect(() => getData(), [getData]);
 
     const toggleChip = async id => {
         try {
@@ -44,29 +39,7 @@ function App() {
     return (
         <Wrapper>
             <h1>Select Items</h1>
-            <InforWrapper>
-                <span>
-                    First Name:{' '}
-                    <StyledInput
-                        value={`${user.firstName}`}
-                        onChange={({ target }) => {
-                            user.firstName = target.value;
-                            setUser(user);
-                        }}
-                    />
-                </span>
 
-                <span>
-                    Last Name:{' '}
-                    <StyledInput
-                        value={`${user.lastName}`}
-                        onChange={({ target }) => {
-                            user.lastName = target.value;
-                            setUser(user);
-                        }}
-                    />
-                </span>
-            </InforWrapper>
             <Box>
                 <Container>
                     {data.data.map(({ label, id }) => (
@@ -103,18 +76,6 @@ function App() {
         </Wrapper>
     );
 }
-
-const InforWrapper = styled.div`
-    display: flex;
-    gap: 10px;
-    align-items: center;
-`;
-
-const StyledInput = styled(Input)`
-    display: inline-block;
-    font-size: 20px;
-    font-weight: 500;
-`;
 
 const Wrapper = styled.div`
     display: flex;
