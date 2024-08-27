@@ -15,8 +15,8 @@ const PAGE_SIZE = 20;
 
 function App() {
     const [user, setUser] = useState({
-        firstName: 'David',
-        lastName: 'Klein',
+        firstName: 'Gilad',
+        lastName: 'Pomer',
     });
     const [page, setPage] = useState(0);
     const [data, setData] = useState();
