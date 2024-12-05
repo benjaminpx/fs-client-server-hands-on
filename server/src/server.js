@@ -10,7 +10,6 @@ app.use(cors());
 const DATA = Array.from({ length: 100 }).map((_, i) => ({
     label: `Item ${i}`,
     id: `id-${i}`,
-    isDefault: Math.random() > 0.5,
 }));
 
 app.get('/api', async (req, res) => {

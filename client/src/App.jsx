@@ -6,7 +6,6 @@ import CheckBox from './components/CheckBox';
 const DATA = Array.from({ length: 20 }).map((_, i) => ({
     label: `Item ${i}`,
     id: `id-${i}`,
-    isDefault: i % 2 === 0,
 }));
 
 const Container = styled.div`
@@ -28,7 +27,6 @@ function App() {
             <Box>
                 <Actions>
                     <CheckBox label="All" />
-                    <CheckBox label="Default" />
                 </Actions>
                 <Container>
                     {DATA.map(({ label, id }) => (
